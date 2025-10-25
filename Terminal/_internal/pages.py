@@ -5,10 +5,11 @@ from .tools import Utils
 import sys
 
 __all__ = (
-    "Page", 
-    "SubPage", 
-    "MenuPage", 
-    "PageRegistry", 
+    "Public",
+    "Page",
+    "SubPage",
+    "MenuPage",
+    "PageRegistry",
     "Manager",
     "Application",
 )
@@ -139,3 +140,11 @@ class Application:
     
     def quit(self) -> None:
         self.active = False
+
+class Public:
+    Page = Page
+    SubPage = SubPage
+    MenuPage = MenuPage
+    PageRegistry = PageRegistry
+    Manager = Manager
+    Application = Application

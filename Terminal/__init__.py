@@ -3,31 +3,21 @@ The Terminal provides all features you will ever need when building your CLI app
 """
 
 from typing import Tuple, Optional, Literal, Union
-from ._internal import Utils, AnsiColor, AnsiCursor, Builder, FileSystem, Terminal, Mode, Pages
-from ._internal.core import History, Manager, ClearScreenArg
-import sys
 
-__all__ = (
-    "Module.terminal_init",
-    "Module.terminal_deinit",
-    "Module.Mode",
-    "Module.Terminal",
-    "Module.Simple",
-    "Module.History",
-    "Module.manager",
-    "Module.print",
-    "Module.input",
-    "Module.space",
-    "Module.clear",
-    "Module.lookup",
-    "Module.log",
-    "Module.new_env",
-    "Module.set_env_mode",
-    "Module.build_progress_bar", 
-    "Module.IOString",
-    "Module.AnimatedString",
-    "Module.ProgressBar",
+from . import core
+from ._internal import (
+    Utils, 
+    AnsiColor, 
+    AnsiCursor, 
+    Builder, 
+    FileSystem, 
+    Terminal, 
+    Mode, 
+    Pages
 )
+from ._internal.core import History, Manager, ClearScreenArg
+from . import ansi, builder, pages, files, tools
+import sys
 
 class Module:
     @staticmethod
@@ -121,12 +111,15 @@ class Module:
             end, color 
         )
 
-    def strip_ansi(cls, text: str) -> str:
+    @staticmethod
+    def strip_ansi(text: str) -> str:
         return Terminal.strip_ansi(text)
     
-    def remove_tags(cls, text: str) -> str:
+    @staticmethod
+    def remove_tags(text: str) -> str:
         return Terminal.remove_tags(text)
 
+    @staticmethod
     def get_size() -> Tuple[int, int]:
         return Terminal.get_size()
 
@@ -146,6 +139,17 @@ class Module:
     AnimatedString = Terminal.AnimatedString
     ProgressBar = Terminal.ProgressBar
 
+    pages = pages
+    ansi = ansi
+    core = core
+    files = files
+    builder = builder
+    tools = tools
+
     terminal_init()
+
+    @classmethod
+    def get_module(cls):
+        return cls
 
 sys.modules[__name__] = Module

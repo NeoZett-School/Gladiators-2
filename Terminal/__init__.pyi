@@ -20,16 +20,20 @@ FileSystem: Type[_FileSystem]
 Utils: Type[_Utils]
 AnsiColor: Type[_AnsiColor]
 AnsiCursor: Type[_AnsiCursor]
-Pages: _Pages
+Pages: Type[_Pages]
 
 manager: Manager
 
-def terminal_init() -> None: 
-    """Initialize the terminal."""
-    ...
-def terminal_deinit() -> None: 
-    """Deinitialize the terminal."""
-    ...
+IOString: Type[_Terminal.IOString]
+AnimatedString: Type[_Terminal.AnimatedString]
+ProgressBar: Type[_Terminal.ProgressBar]
+
+# --------------------
+# Public API Functions
+# --------------------
+
+def terminal_init() -> None: ...
+def terminal_deinit() -> None: ...
 
 def print(
     *values: object,
@@ -40,16 +44,7 @@ def print(
     clear_screen: ClearScreenArg = False,
     prefix: str = "",
     suffix: str = "",
-) -> None: 
-    """
-    Print values to the terminal with optional formatting.
-
-    Supports:
-    - Color tags (like $red)
-    - Prefix/suffix
-    - Screen clearing
-    """
-    ...
+) -> None: ...
 
 def input(
     *prompt: object,
@@ -60,88 +55,39 @@ def input(
     clear_screen: ClearScreenArg = False,
     input_text: Optional[str] = "",
     n: int = -1
-) -> str:
-    """
-    Display a prompt and read user input.
+) -> str: ...
 
-    Supports:
-    - Color tags
-    - Screen clearing
-    - Prefix/suffix through Terminal.print
-    - Reading a fixed number of characters via `n`
-    """
-    ...
-
-def space() -> None:
-    """Simply print a space in the terminal."""
-    ...
+def space() -> None: ...
 
 @overload
-def clear(*, ansi: Literal[False] = False) -> None:
-    """Clear the console like normal. (The same: `Simple.clear`)"""
-    ...
-
+def clear(*, ansi: Literal[False] = False) -> None: ...
 @overload
-def clear(*, ansi: Literal[True], flush: bool = True) -> None:
-    """Clear the console using ansi codes. May not work as expected. More compatible."""
-    ...
+def clear(*, ansi: Literal[True], flush: bool = True) -> None: ...
 
-def lookup(tag: str) -> Optional[_Terminal.Color]:
-    """Lookup a color tag."""
-    ...
+def lookup(tag: str) -> Optional[_Terminal.Color]: ...
 
 def log(
-        *msg: object, format: str = "[[level]] [msg]", level: Literal["INFO", "WARN", "ERROR"] = "INFO", time_format: str = "%H:%M", color: bool = True
-    ) -> None:
-    """Log message with a provided level."""
-    ...
+    *msg: object,
+    format: str = "[[level]] [msg]",
+    level: Literal["INFO", "WARN", "ERROR"] = "INFO",
+    time_format: str = "%H:%M",
+    color: bool = True
+) -> None: ...
 
-def new_env(prefix: Optional[_Terminal.Color] = None, suffix: Optional[_Terminal.Color] = None) -> Manager.Environment:
-    """Create a new environment."""
-    ...
+def new_env(prefix: Optional[_Terminal.Color] = None, suffix: Optional[_Terminal.Color] = None) -> Manager.Environment: ...
 
-def set_env_mode(mode: Union[_Mode, str] = Mode.SINGLE) -> None:
-    """Set the environment mode (Single or Multiple). This affects how colors are rendered."""
-    ...
+def set_env_mode(mode: Union[_Mode, str] = Mode.SINGLE) -> None: ...
 
 def progress_bar(
     formatted_string: str = "[had]|[need]|[prog]%",
-    token: str = "-", length: int = 10,
-    has: float = 0, need: float = 10,
-    end: Optional[str] = "", color: bool = True
-) -> str:
-    """Build a new progress bar."""
-    ...
+    token: str = "-",
+    length: int = 10,
+    has: float = 0,
+    need: float = 10,
+    end: Optional[str] = "",
+    color: bool = True
+) -> str: ...
 
-def strip_ansi(cls, text: str) -> str:
-    """Strip all ansi escape codes from the text."""
-    ...
-
-def remove_tags(cls, text: str) -> str:
-    """Remove all tags from the text."""
-    ...
-
-def get_size() -> Tuple[int, int]:
-    """Get the terminal size."""
-    ...
-
-IOString: Type[_Terminal.IOString]
-AnimatedString: Type[_Terminal.AnimatedString]
-ProgressBar: Type[_Terminal.ProgressBar]
-
-class Module:
-    Mode: Type[_Mode]
-    Terminal: Type[_Terminal]
-    Simple: Type[_Terminal.Simple]
-    History: Type[_History]
-    Builder: Type[_Builder]
-    FileSystem: Type[_FileSystem]
-    Utils: Type[_Utils]
-    AnsiColor: Type[_AnsiColor]
-    AnsiCursor: Type[_AnsiCursor]
-    Pages: _Pages
-    manager: Manager
-
-    IOString: Type[_Terminal.IOString]
-    AnimatedString: Type[_Terminal.AnimatedString]
-    ProgressBar: Type[_Terminal.ProgressBar]
+def strip_ansi(text: str) -> str: ...
+def remove_tags(text: str) -> str: ...
+def get_size() -> Tuple[int, int]: ...

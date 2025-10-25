@@ -132,3 +132,14 @@ class Application:
     def quit(self) -> None:
         """Quit the application."""
         ...
+
+class Public:
+    """
+    The pages will allow you to make the application adaptive, modular, and dynamic.
+    """
+    Page: Type["Page"]
+    SubPage: Type["SubPage"]
+    MenuPage: Type["MenuPage"]
+    PageRegistry: Type["PageRegistry"]
+    Manager: Type["Manager"]
+    Application: Type["Application"]

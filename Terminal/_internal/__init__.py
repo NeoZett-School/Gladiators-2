@@ -7,7 +7,7 @@ from .builder import Builder
 from .files import FileSystem
 from .core import Terminal
 from .enums import Mode
-from . import pages as Pages
+from .pages import Public as Pages
 
 __all__ = (
     "Utils",

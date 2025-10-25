@@ -1,10 +1,11 @@
+from Terminal.pages import Page, SubPage, MenuPage, Application
+from Terminal import Terminal
 from game import GameGlobal
 from enums import Difficulty
-from Terminal import Terminal, Pages
 
-class Menu(Pages.MenuPage):
+class Menu(MenuPage):
     title = "Welcome to the $bluGladiators$res!"
-    subtitle = "Options"
+    subtitle = "Options:"
     prompt = "Select one destination: "
     options = [
         "$greContinue$res",
@@ -14,7 +15,6 @@ class Menu(Pages.MenuPage):
     tag = "menu"
     def render(self) -> None:
         self.build_ui()
-        self.builder.print("Once you enter the game, go back to enter the shop.")
         self.builder.render()
         match self.generate_options().strip():
             case "1":
@@ -24,7 +24,7 @@ class Menu(Pages.MenuPage):
             case "3":
                 self.app.quit()
 
-class Settings(Pages.MenuPage):
+class Settings(MenuPage):
     title = "---- {$briSETTINGS$res} ----"
     subtitle = "Options:"
     prompt = "Select one option to chance: "
@@ -59,7 +59,28 @@ class Settings(Pages.MenuPage):
             case "3": 
                 self.app.init("menu")
 
-class ShopPage(Pages.MenuPage):
+class ShopPage(MenuPage):
+    class Popup(SubPage, MenuPage):
+        title = "---- {$briSHOP DIRECTORY$res} ----"
+        subtitle = "Options:"
+        prompt = "Select one option: "
+        options = [
+            "$greWeapons$res",
+            "$greArmor$res",
+            "$redBack$res"
+        ]
+        tag = "shop_directory"
+        def render(self) -> None:
+            self.build_ui()
+            self.builder.render()
+            match self.generate_options().strip():
+                case "1":
+                    Terminal.print("Buying is not implemented yet!", color=True)
+                case "2":
+                    Terminal.print("Buying is not implemented yet!", color=True)
+                case "3":
+                    self.app.init("shop")
+
     title = "---- {$bri$greSHOP$res} ----"
     subtitle = "Options:"
     prompt = "Select one option: "
@@ -69,6 +90,8 @@ class ShopPage(Pages.MenuPage):
         "$redBack$res"
     ]
     tag = "shop"
+    def init(self, app: Application) -> None:
+        super().init(app)
     def render(self) -> None:
         self.build_ui()
         self.builder.render()
