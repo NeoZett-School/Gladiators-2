@@ -3,11 +3,7 @@ from pages import (
     Menu, Settings
 )
 
-PageRegistry.build({
-    # Correlate string identification with the correct page
-    "menu": Menu,
-    "settings": Settings
-})
+PageRegistry.build(Menu, Settings)
 game = Game()
 PageRegistry.load(game)
 game.init("menu")
