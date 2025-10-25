@@ -1,9 +1,8 @@
-from console import Page, SubPage, MenuPage
 from game import GameGlobal
 from enums import Difficulty
-from Terminal import Terminal
+from Terminal import Terminal, Pages
 
-class Menu(MenuPage):
+class Menu(Pages.MenuPage):
     title = "Welcome to the $bluGladiators$res!"
     subtitle = "Options"
     prompt = "Select one destination: "
@@ -19,11 +18,11 @@ class Menu(MenuPage):
         self.builder.render()
         match self.generate_options().strip():
             case "2":
-                self.game.init("settings")
+                self.app.init("settings")
             case "3":
-                self.game.quit()
+                self.app.quit()
 
-class Settings(MenuPage):
+class Settings(Pages.MenuPage):
     title = "---- {$briSETTINGS$res} ----"
     subtitle = "Options:"
     prompt = "Select one option to chance: "
@@ -55,9 +54,9 @@ class Settings(MenuPage):
                         Terminal.print(f"$redInvalid$res. Please select a valid option, not \"{user_input}\".", color=True)
                 GameGlobal.Settings.difficulty = new_difficulty
             case "3": 
-                self.game.init("menu")
+                self.app.init("menu")
 
-class ShopPage(MenuPage):
+class ShopPage(Pages.MenuPage):
     title = "---- {$bri$greSHOP$res} ----"
     subtitle = "Options:"
     prompt = "Select one option: "
@@ -72,4 +71,4 @@ class ShopPage(MenuPage):
             case "1":
                 Terminal.print("Buying is not implemented yet!", color=True)
             case "2":
-                self.game.init("menu")
+                self.app.init("menu")

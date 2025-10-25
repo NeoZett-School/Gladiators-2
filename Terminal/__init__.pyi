@@ -6,7 +6,8 @@ from ._internal import (
     Builder as _Builder, 
     FileSystem as _FileSystem, 
     Terminal as _Terminal, 
-    Mode as _Mode
+    Mode as _Mode,
+    Pages as _Pages
 )
 from ._internal.core import History as _History, Manager, ClearScreenArg
 
@@ -19,6 +20,7 @@ FileSystem: Type[_FileSystem]
 Utils: Type[_Utils]
 AnsiColor: Type[_AnsiColor]
 AnsiCursor: Type[_AnsiCursor]
+Pages: _Pages
 
 manager: Manager
 
@@ -137,6 +139,7 @@ class Module:
     Utils: Type[_Utils]
     AnsiColor: Type[_AnsiColor]
     AnsiCursor: Type[_AnsiCursor]
+    Pages: _Pages
     manager: Manager
 
     IOString: Type[_Terminal.IOString]
