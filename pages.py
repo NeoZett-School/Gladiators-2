@@ -1,5 +1,5 @@
 from Terminal.pages import Page, SubPage, MenuPage, Application
-from Terminal import Terminal
+from Terminal import Terminal, Utils
 from game import GameGlobal
 from enums import Difficulty
 
@@ -60,26 +60,9 @@ class Settings(MenuPage):
                 self.app.init("menu")
 
 class ShopPage(MenuPage):
-    class Popup(SubPage, MenuPage):
-        title = "---- {$briSHOP DIRECTORY$res} ----"
-        subtitle = "Options:"
-        prompt = "Select one option: "
-        options = [
-            "$greWeapons$res",
-            "$greArmor$res",
-            "$redBack$res"
-        ]
-        tag = "shop_directory"
+    class Popup(SubPage):
         def render(self) -> None:
-            self.build_ui()
-            self.builder.render()
-            match self.generate_options().strip():
-                case "1":
-                    Terminal.print("Buying is not implemented yet!", color=True)
-                case "2":
-                    Terminal.print("Buying is not implemented yet!", color=True)
-                case "3":
-                    self.app.init("shop")
+            sure = Utils.confirm("Are you sure you want to buy ?", color=True)
 
     title = "---- {$bri$greSHOP$res} ----"
     subtitle = "Options:"
@@ -92,6 +75,7 @@ class ShopPage(MenuPage):
     tag = "shop"
     def init(self, app: Application) -> None:
         super().init(app)
+        self.item = None
     def render(self) -> None:
         self.build_ui()
         self.builder.render()
