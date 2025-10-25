@@ -61,7 +61,6 @@ class MenuPage(Page):
     def build_ui(self) -> None:
         self.builder.clear()
         self.builder.print(self.title, color=True)
-        self.builder.space()
 
     def generate_options(self, additional_text: Optional[List[str]] = None) -> str:
         return Utils.select_menu([

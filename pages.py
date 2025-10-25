@@ -17,6 +17,8 @@ class Menu(Pages.MenuPage):
         self.builder.print("Once you enter the game, go back to enter the shop.")
         self.builder.render()
         match self.generate_options().strip():
+            case "1":
+                self.app.init("shop")
             case "2":
                 self.app.init("settings")
             case "3":
@@ -34,6 +36,7 @@ class Settings(Pages.MenuPage):
     tag = "settings"
     def render(self) -> None:
         self.build_ui()
+        self.builder.render()
         match self.generate_options([
             f" [$mag{GameGlobal.Settings.name}$res]",
             f" [$mag{GameGlobal.Settings.difficulty.title()}$res]"
@@ -61,14 +64,18 @@ class ShopPage(Pages.MenuPage):
     subtitle = "Options:"
     prompt = "Select one option: "
     options = [
-        "$greBuy$res",
+        "$greWeapons$res",
+        "$greArmor$res",
         "$redBack$res"
     ]
     tag = "shop"
     def render(self) -> None:
         self.build_ui()
+        self.builder.render()
         match self.generate_options().strip():
             case "1":
                 Terminal.print("Buying is not implemented yet!", color=True)
             case "2":
+                Terminal.print("Buying is not implemented yet!", color=True)
+            case "3":
                 self.app.init("menu")
